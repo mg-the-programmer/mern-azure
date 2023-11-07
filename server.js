@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 3001;
+const path = require("path");
 
 const app = express();
 
@@ -40,6 +41,10 @@ app.post("/create", (req, res) => {
     .save()
     .then((user) => res.json(user))
     .catch((err) => console.log(err));
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(port, () => {
